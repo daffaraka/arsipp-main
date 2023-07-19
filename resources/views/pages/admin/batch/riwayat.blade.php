@@ -13,7 +13,7 @@
                         <div class="col-auto mb-3">
                             <h1 class="page-header-title">
                                 <div class="page-header-icon"><i data-feather="box"></i></div>
-                                Batch Record
+                                Riwayat Batch Record
 
                             </h1>
                         </div>
@@ -27,10 +27,8 @@
                 <div class="col-lg-12">
                     <div class="card card-header-actions mb-4">
                         <div class="card-header">
-                            List Batch Record
-                            <a class="btn btn-sm btn-primary" href="{{ route('batch.create') }}">
-                                Tambah Batch
-                            </a>
+                            Riwayat Batch Record
+
                         </div>
                         <div class="card-body">
                             {{-- Alert --}}
@@ -69,6 +67,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($batch as $item)
+
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $item->bets_no }}</td>
@@ -76,7 +75,7 @@
                                                 <td>{{ $item->department->name }}</td>
                                                 <td>{{ $item->sender->name }}</td>
                                                 <td>{{ $item->tracking->first()->user->name ?? '-' }}</td>
-                                                <td>{{ $item->tracking->first()->status ?? '-' }}</td>
+                                                <td>{{ $item->tracking->first()->status }}</td>
                                                 <td>
                                                     <a href="{{ route('batch.show', $item->id) }}"
                                                         class="btn btn-success btn-xs">
@@ -86,10 +85,10 @@
                                                         class="btn btn-primary btn-xs">
                                                         <i class="fas fa-edit"></i> &nbsp; Ubah
                                                     </a>
-                                                    <a href="{{ route('batch.destroy', $item->id) }}"
-                                                        class="btn btn-danger btn-xs delete-btn">
-                                                        <i class="far fa-trash-alt"></i> &nbsp;
-                                                        Hapus</a>
+                                                    <a href="{{ route('batch.destroy', $item->id) }}" id="delete"
+                                                        class="btn btn-danger btn-xs">
+                                                        <i class="far fa-trash-alt"></i> &nbsp; Hapus
+                                                    </a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -102,113 +101,7 @@
             </div>
         </div>
 
-        {{-- Edit Modal --}}
-        <div class="modal fade" id="updateModal" role="dialog" aria-labelledby="createModal" aria-hidden="true"
-            style="overflow:hidden;">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="createModal">Tambah Data Produk</h5>
-                        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form method="post" id="updateForm" enctype="multipart/form-data">
-                        @csrf
-                        <input type="hidden" name="id" id="idEdit">
-                        <div class="modal-body">
-                            <div class="mb-3 row">
-                                <label for="department_id" class="col-sm-3 col-form-label">Produk</label>
-                                <div class="col-sm-9">
-                                    <select name="department_id" class="form-control selectx" id="department_id" required>
-                                        <option value="">Pilih..</option>
-                                        @foreach ($departments as $department)
-                                            <option value="{{ $department->id }}"
-                                                {{ old('department_id') == $department->id ? 'selected' : '' }}>
-                                                {{ $department->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                @error('department_id')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
 
-                            <div class="mb-3 row">
-                                <label for="letter_no" class="col-sm-3 col-form-label">Kode</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control @error('kode') is-invalid @enderror"
-                                        value="{{ old('kode') }}" id="editKode" name="kode"
-                                        placeholder="Kode Dokumen.." required>
-                                </div>
-                                @error('kode')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="mb-3 row">
-                                <label for="letter_no" class="col-sm-3 col-form-label">No. Bets</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control @error('bets_no') is-invalid @enderror"
-                                        value="{{ old('bets_no') }}" id="editBetsNo" name="bets_no"
-                                        placeholder="No. Bets.." required>
-                                </div>
-                                @error('bets_no')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="mb-3 row">
-                                <label for="letter_date" class="col-sm-3 col-form-label">Tanggal PO</label>
-                                <div class="col-sm-9">
-                                    <input type="date" class="form-control @error('bets_date') is-invalid @enderror"
-                                        value="{{ old('bets_date') }}" id="editBatesDate" name="bets_date" required>
-                                </div>
-                                @error('bets_Date')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="mb-3 row">
-                                <label for="bets_received" class="col-sm-3 col-form-label">Tanggal Upload</label>
-                                <div class="col-sm-9">
-                                    <input type="date"
-                                        class="form-control @error('bets_received') is-invalid @enderror"
-                                        value="{{ old('bets_received') }}" id="editBetsR" name="bets_received" required>
-                                </div>
-                                @error('bets_received')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-
-                            <div class="mb-3 row">
-                                <label for="letter_file" class="col-sm-3 col-form-label">File</label>
-                                <div class="col-sm-9">
-                                    <input type="file" class="form-control @error('bets_file') is-invalid @enderror"
-                                        value="{{ old('bets_file') }}" name="bets_file"
-                                        accept="application/pdf,application/vnd.ms-excel" required>
-                                    <div id="letter_file" class="form-text">Ekstensi .pdf</div>
-                                </div>
-                                @error('bets_file')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Batal</button>
-                            <button class="btn btn-primary" type="submit" id="updateBtn">Simpan</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
     </main>
 
 @endsection
@@ -241,7 +134,7 @@
         $(document).ready(function() {
 
 
-            $(document).on('click', '.delete-btn', function(e) {
+            $('#delete').click(function(e) {
                 e.preventDefault();
                 var urlToRedirect = e.currentTarget.getAttribute('href');
                 Swal.fire({
@@ -259,9 +152,11 @@
                             'Sukses menghapus data!',
                             'Data telah dihapus',
                             'success'
-                        );
+                        )
+
                     }
-                });
+                })
+
             });
 
 

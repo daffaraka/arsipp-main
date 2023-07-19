@@ -61,104 +61,108 @@
                 </div>
                 <div class="col-lg-5">
                     <div class="card mb-5">
-                    <div class="card">
+                        <div class="card">
 
                             <div class="card-header">Perbarui Status Tracking</div>
                             <form action="{{ route('tracking.store') }}" method="POST"enctype="multipart/form-data">
                                 @csrf
                                 <div class="card-body">
-                                <div class="mb-3">
-                                    <label for="">Pilih status</label>
-                                    <input type="hidden" name="batch_id" value="{{ $item->id }}">
-                                    <select name="status" id="" class="form-control ">
-                                        <option value="">Perbarui status</option>
+                                    <div class="mb-3">
+                                        <label for="">Pilih status</label>
+                                        <input type="hidden" name="batch_id" value="{{ $item->id }}">
+                                        <select name="status" id="" class="form-control ">
+                                            <option value="">Perbarui status</option>
 
 
-                                        @can('Penimbangan')
-                                            <option value="penimbangan">Penimbangan</option>
-                                        @endcan
-                                        @can('Pengolahan')
-                                            <option value="pengolahan">Pengolahan</option>
-                                        @endcan
-                                        @can('Rekonsiliasi')
-                                            <option value="rekonsiliasi">Penerimaan dan
-                                                rekonsiliasi bahan pengemas</option>
-                                        @endcan
-                                        @can('Container')
-                                            <option value="container">Pembukaan container</option>
-                                        @endcan
-                                        @can('Pengisian')
-                                            <option value="pengisian    ">Pengisian</option>
-                                        @endcan
-                                        @can('Pengemasan')
-                                            <option value="pengemasan">Pengemasan</option>
-                                        @endcan
-                                        @can('Admin')
-                                            <option value="selesai">Selesai</option>
-                                        @endcan
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="">Keterangan</label>
-                                    <input type="text" name="keterangan" id="" class="form-control">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="">Upload Foto Bukti</label>
-                                    <input type="file" name="foto" id="" class="form-control" capture="camera"  >
-                                </div>
-                                <button class="btn btn-success btn-md pb-2 mt-3">Submit</button>
+                                            @can('Penimbangan')
+                                                <option value="penimbangan">Penimbangan</option>
+                                            @endcan
+                                            @can('Pengolahan')
+                                                <option value="pengolahan">Pengolahan</option>
+                                            @endcan
+                                            @can('Rekonsiliasi')
+                                                <option value="rekonsiliasi">Penerimaan dan
+                                                    rekonsiliasi bahan pengemas</option>
+                                            @endcan
+                                            @can('Container')
+                                                <option value="container">Pembukaan container</option>
+                                            @endcan
+                                            @can('Pengisian')
+                                                <option value="pengisian    ">Pengisian</option>
+                                            @endcan
+                                            @can('Pengemasan')
+                                                <option value="pengemasan">Pengemasan</option>
+                                            @endcan
+                                            @can('Admin')
+                                                <option value="selesai">Selesai</option>
+                                            @endcan
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="">Keterangan</label>
+                                        <input type="text" name="keterangan" id="" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="">Upload Foto Bukti</label>
+                                        <input type="file" name="foto" id="" class="form-control"
+                                            capture="camera">
+                                    </div>
+                                    <button class="btn btn-success btn-md pb-2 mt-3">Submit</button>
                             </form>
                         </div>
                     </div>
                 </div>
-                </div>
+            </div>
 
 
-                <div class="col-md-12">
-                    <div class="card">
+            <div class="col-md-12">
+                <div class="card">
 
-                            <div class="card-header">Detail Tracking </div>
+                    <div class="card-header">Detail Tracking </div>
 
-                            <div class="card-body">
-                            <div class="row">
-                                <div class="table-responsive">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="table-responsive">
                                 <table class="table">
                                     <thead>
-                                      <tr class ="align-middle">
-                                        <th>Status</th>
-                                        <th>Keterangan</th>
-                                        <th>Nama Pengguna</th>
-                                        <th>Tanggal</th>
-                                        <th>Foto</th>
-                                      </tr>
+                                        <tr class="align-middle">
+                                            <th>Status</th>
+                                            <th>Keterangan</th>
+                                            <th>Nama Pengguna</th>
+                                            <th>Tanggal</th>
+                                            <th>Foto</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                      @foreach ($item->tracking as $array => $tracking)
-                                      <tr>
-                                        <td>
-                                          <span class="badge bg-{{ $array == 0 ? 'success' : 'white text-dark' }}">{{ $tracking->status }}</span>
-                                        </td>
-                                        <td>{{ $tracking->keterangan }}</td>
-                                        <td>{{ $tracking->user->name }}</td>
-                                        <td>{{ Carbon\Carbon::parse($tracking->created_at)->isoFormat('ll LT') }}</td>
-                                        <td>
-                                            @if ($tracking->foto)
-                                            <img src="{{ Storage::url($tracking->foto) }}" alt="Foto Bukti" width="100">
-                                        @else
-                                            Tidak ada foto
-                                        @endif
-                                      </tr>
-                                      @endforeach
+                                        @foreach ($item->tracking as $array => $tracking)
+                                            <tr>
+                                                <td>
+                                                    <span
+                                                        class="badge bg-{{ $array == 0 ? 'success' : 'white text-dark' }}">{{ $tracking->status }}</span>
+                                                </td>
+                                                <td>{{ $tracking->keterangan }}</td>
+                                                <td>{{ $tracking->user->name }}</td>
+                                                <td>{{ Carbon\Carbon::parse($tracking->created_at)->isoFormat('ll LT') }}
+                                                </td>
+                                                <td>
+                                                    @if ($tracking->foto)
+                                                        <img src="{{ Storage::url($tracking->foto) }}" alt="Foto Bukti"
+                                                            width="100">
+                                                    @else
+                                                        Tidak ada foto
+                                                    @endif
+                                            </tr>
+                                        @endforeach
                                     </tbody>
-                                  </table>
-                                </div>
+                                </table>
                             </div>
                         </div>
                     </div>
-
                 </div>
 
             </div>
+
+        </div>
         </div>
     </main>
 @endsection

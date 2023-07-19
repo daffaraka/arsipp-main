@@ -236,23 +236,6 @@ Produk
             });
         });
 
-        function deleteConfirmation(url) {
-            if (confirm("Apakah Anda yakin akan menghapus item ini dari situs Anda?")) {
-                $.ajax({
-                    url: url,
-                    type: 'DELETE',
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                    },
-                    success: function(data) {
-                        alert(data.success);
-                        $('#department-table').DataTable().ajax.reload();
-                    },
-                    error: function() {
-                        alert('Terjadi kesalahan. Silakan coba lagi.');
-                    }
-                });
-            }
-        }
+      
     </script>
 @endpush

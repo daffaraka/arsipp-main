@@ -41,32 +41,32 @@
                 </a>
             @endcan
 
-
-            {{-- @can('Admin')
-                <a class="nav-link {{ request()->is('admin/letter/create') ? 'active' : '' }}"
-                    href="{{ route('letter.create') }}">
-                    <div class="nav-link-icon"><i data-feather="file-text"></i></div>
-                    Tambah Arsip
-                </a>
-            @endcan --}}
-
             @can('Admin')
                 <a class="nav-link {{ request()->is('admin/letter/arsip') ? 'active' : '' }}" href="{{ route('arsip') }}">
                     <div class="nav-link-icon"><i data-feather="mail"></i></div>
                     Arsip
                 </a>
             @endcan
+
+
             {{-- <a class="nav-link {{ request()->is('admin/batch-record/create') ? 'active' : '' }}"
                 href="{{ route('batch.create') }}">
                 <div class="nav-link-icon"><i data-feather="book-open"></i></div>
                 Tambah Batch Record
             </a> --}}
 
-            <a class="nav-link {{ request()->is('admin/letter/batch-record') ? 'active' : '' }}"
+            <a class="nav-link {{ request()->is('admin/batch-record') ? 'active' : '' }}"
                 href="{{ route('batch') }}">
                 <div class="nav-link-icon"><i data-feather="box"></i></div>
                 Batch Record
             </a>
+
+            @can('Admin')
+                <a class="nav-link {{ request()->is('admin/batch-record/riwayat') ? 'active' : '' }}" href="{{ route('batch.riwayat') }}">
+                    <div class="nav-link-icon"><i data-feather="align-center"></i></div>
+                    Riwayat
+                </a>
+            @endcan
 
             @can('Admin')
                 <a class="nav-link {{ request()->is('admin/user*') ? 'active' : '' }}" href="{{ route('user.index') }}">

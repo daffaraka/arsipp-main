@@ -72,6 +72,7 @@ class LetterController extends Controller
     public function incoming_mail()
     {            $data = Letter::with(['department', 'sender'])->latest()->get();
 
+        // dd($data);
         // if (request()->ajax()) {
 
         //     return Datatables::of($query)

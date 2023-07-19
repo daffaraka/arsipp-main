@@ -19,7 +19,12 @@ class CreateBatchRecordsTable extends Migration
             $table->date('bets_date');
             $table->string('kode');
             $table->unsignedBigInteger('produk_id');
-            $table->foreignId('sender_id');
+            $table->unsignedBigInteger('sender_id');
+
+
+            $table->foreign('produk_id')->references('id')->on('departments')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('sender_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
+
             $table->timestamps();
         });
     }

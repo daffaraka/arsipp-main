@@ -138,6 +138,17 @@ class BatchRecordController extends Controller
         $batch->delete();
 
         return redirect()->back();
+    }
 
+
+    public function riwayat()
+    {
+        $batch = BatchRecord::with(['sender', 'tracking' => function ($query) {
+            $query->latest();
+        }])->get();
+
+
+      
+        return view('pages.admin.batch.riwayat', compact('batch'));
     }
 }

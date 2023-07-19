@@ -83,7 +83,8 @@ Route::prefix('admin')
         Route::get('batch-record/edit/{id}', [BatchRecordController::class, 'edit'])->name('batch.edit');
         Route::post('batch-record/update/{id}', [BatchRecordController::class, 'update'])->name('batch.update');
         Route::get('batch-record/delete/{id}', [BatchRecordController::class, 'destroy'])->name('batch.destroy');
-
+        Route::get('batch-record/riwayat',[BatchRecordController::class,'riwayat'])->name('batch.riwayat');
+        
         Route::get('batch-tracking', [BatchTrackingController::class, 'index'])->name('tracking');
         Route::get('batch-tracking/create', [BatchTrackingController::class, 'create'])->name('tracking.create');
         Route::post('batch-tracking/store', [BatchTrackingController::class, 'store'])->name('tracking.store');
